@@ -62,7 +62,13 @@ default = ["any", "macros", "migrate", "json"]
 
 derive = ["sqlx-macros/derive"]
 macros = ["derive", "sqlx-macros/macros"]
-migrate = ["sqlx-core/migrate", "sqlx-macros?/migrate", "sqlx-mysql?/migrate", "sqlx-postgres?/migrate", "sqlx-sqlite?/migrate"]
+migrate = [
+    "sqlx-core/migrate",
+    "sqlx-macros?/migrate",
+    "sqlx-mysql?/migrate",
+    "sqlx-postgres?/migrate",
+    "sqlx-sqlite?/migrate",
+]
 
 # Enable parsing of `sqlx.toml` for configuring macros and migrations.
 sqlx-toml = ["sqlx-core/sqlx-toml", "sqlx-macros?/sqlx-toml"]
@@ -80,22 +86,35 @@ _unstable-all-types = [
     "mac_address",
     "uuid",
     "bit-vec",
-    "bstr"
+    "bstr",
 ]
 # Render documentation that wouldn't otherwise be shown (e.g. `sqlx_core::config`).
 _unstable-doc = []
 
 # Base runtime features without TLS
-runtime-async-std = ["_rt-async-std", "sqlx-core/_rt-async-std", "sqlx-macros?/_rt-async-std"]
+runtime-async-std = [
+    "_rt-async-std",
+    "sqlx-core/_rt-async-std",
+    "sqlx-macros?/_rt-async-std",
+]
 runtime-tokio = ["_rt-tokio", "sqlx-core/_rt-tokio", "sqlx-macros?/_rt-tokio"]
 
 # TLS features
 tls-native-tls = ["sqlx-core/_tls-native-tls", "sqlx-macros?/_tls-native-tls"]
 tls-rustls = ["tls-rustls-ring"] # For backwards compatibility
-tls-rustls-aws-lc-rs = ["sqlx-core/_tls-rustls-aws-lc-rs", "sqlx-macros?/_tls-rustls-aws-lc-rs"]
+tls-rustls-aws-lc-rs = [
+    "sqlx-core/_tls-rustls-aws-lc-rs",
+    "sqlx-macros?/_tls-rustls-aws-lc-rs",
+]
 tls-rustls-ring = ["tls-rustls-ring-webpki"] # For backwards compatibility
-tls-rustls-ring-webpki = ["sqlx-core/_tls-rustls-ring-webpki", "sqlx-macros?/_tls-rustls-ring-webpki"]
-tls-rustls-ring-native-roots = ["sqlx-core/_tls-rustls-ring-native-roots", "sqlx-macros?/_tls-rustls-ring-native-roots"]
+tls-rustls-ring-webpki = [
+    "sqlx-core/_tls-rustls-ring-webpki",
+    "sqlx-macros?/_tls-rustls-ring-webpki",
+]
+tls-rustls-ring-native-roots = [
+    "sqlx-core/_tls-rustls-ring-native-roots",
+    "sqlx-macros?/_tls-rustls-ring-native-roots",
+]
 
 # No-op feature used by the workflows to compile without TLS enabled. Not meant for general use.
 tls-none = []
@@ -106,25 +125,84 @@ _rt-tokio = []
 _sqlite = []
 
 # database
-any = ["sqlx-core/any", "sqlx-mysql?/any", "sqlx-postgres?/any", "sqlx-sqlite?/any"]
+any = [
+    "sqlx-core/any",
+    "sqlx-mysql?/any",
+    "sqlx-postgres?/any",
+    "sqlx-sqlite?/any",
+    "sqlx-oracle?/any",
+]
 postgres = ["sqlx-postgres", "sqlx-macros?/postgres"]
 mysql = ["sqlx-mysql", "sqlx-macros?/mysql"]
 sqlite = ["_sqlite", "sqlx-sqlite/bundled", "sqlx-macros?/sqlite"]
-sqlite-unbundled = ["_sqlite", "sqlx-sqlite/unbundled", "sqlx-macros?/sqlite-unbundled"]
+sqlite-unbundled = [
+    "_sqlite",
+    "sqlx-sqlite/unbundled",
+    "sqlx-macros?/sqlite-unbundled",
+]
+oracle = ["sqlx-oracle", "sqlx-macros?/oracle"]
 sqlite-preupdate-hook = ["sqlx-sqlite/preupdate-hook"]
 
 # types
-json = ["sqlx-core/json", "sqlx-macros?/json", "sqlx-mysql?/json", "sqlx-postgres?/json", "sqlx-sqlite?/json"]
+json = [
+    "sqlx-core/json",
+    "sqlx-macros?/json",
+    "sqlx-mysql?/json",
+    "sqlx-postgres?/json",
+    "sqlx-sqlite?/json",
+    "sqlx-oracle?/json",
+]
 
-bigdecimal = ["sqlx-core/bigdecimal", "sqlx-macros?/bigdecimal", "sqlx-mysql?/bigdecimal", "sqlx-postgres?/bigdecimal"]
-bit-vec = ["sqlx-core/bit-vec", "sqlx-macros?/bit-vec", "sqlx-postgres?/bit-vec"]
-chrono = ["sqlx-core/chrono", "sqlx-macros?/chrono", "sqlx-mysql?/chrono", "sqlx-postgres?/chrono", "sqlx-sqlite?/chrono"]
+bigdecimal = [
+    "sqlx-core/bigdecimal",
+    "sqlx-macros?/bigdecimal",
+    "sqlx-mysql?/bigdecimal",
+    "sqlx-postgres?/bigdecimal",
+    "sqlx-oracle?/bigdecimal",
+]
+bit-vec = [
+    "sqlx-core/bit-vec",
+    "sqlx-macros?/bit-vec",
+    "sqlx-postgres?/bit-vec",
+]
+chrono = [
+    "sqlx-core/chrono",
+    "sqlx-macros?/chrono",
+    "sqlx-mysql?/chrono",
+    "sqlx-postgres?/chrono",
+    "sqlx-sqlite?/chrono",
+]
 ipnet = ["sqlx-core/ipnet", "sqlx-macros?/ipnet", "sqlx-postgres?/ipnet"]
-ipnetwork = ["sqlx-core/ipnetwork", "sqlx-macros?/ipnetwork", "sqlx-postgres?/ipnetwork"]
-mac_address = ["sqlx-core/mac_address", "sqlx-macros?/mac_address", "sqlx-postgres?/mac_address"]
-rust_decimal = ["sqlx-core/rust_decimal", "sqlx-macros?/rust_decimal", "sqlx-mysql?/rust_decimal", "sqlx-postgres?/rust_decimal"]
-time = ["sqlx-core/time", "sqlx-macros?/time", "sqlx-mysql?/time", "sqlx-postgres?/time", "sqlx-sqlite?/time"]
-uuid = ["sqlx-core/uuid", "sqlx-macros?/uuid", "sqlx-mysql?/uuid", "sqlx-postgres?/uuid", "sqlx-sqlite?/uuid"]
+ipnetwork = [
+    "sqlx-core/ipnetwork",
+    "sqlx-macros?/ipnetwork",
+    "sqlx-postgres?/ipnetwork",
+]
+mac_address = [
+    "sqlx-core/mac_address",
+    "sqlx-macros?/mac_address",
+    "sqlx-postgres?/mac_address",
+]
+rust_decimal = [
+    "sqlx-core/rust_decimal",
+    "sqlx-macros?/rust_decimal",
+    "sqlx-mysql?/rust_decimal",
+    "sqlx-postgres?/rust_decimal",
+]
+time = [
+    "sqlx-core/time",
+    "sqlx-macros?/time",
+    "sqlx-mysql?/time",
+    "sqlx-postgres?/time",
+    "sqlx-sqlite?/time",
+]
+uuid = [
+    "sqlx-core/uuid",
+    "sqlx-macros?/uuid",
+    "sqlx-mysql?/uuid",
+    "sqlx-postgres?/uuid",
+    "sqlx-sqlite?/uuid",
+]
 regexp = ["sqlx-sqlite?/regexp"]
 bstr = ["sqlx-core/bstr"]
 
@@ -138,6 +216,7 @@ sqlx-macros = { version = "=0.9.0-alpha.1", path = "sqlx-macros" }
 sqlx-mysql = { version = "=0.9.0-alpha.1", path = "sqlx-mysql" }
 sqlx-postgres = { version = "=0.9.0-alpha.1", path = "sqlx-postgres" }
 sqlx-sqlite = { version = "=0.9.0-alpha.1", path = "sqlx-sqlite" }
+sqlx-oracle = { version = "=0.9.0-alpha.1", path = "sqlx-oracle" }
 
 # Facade crate (for reference from sqlx-cli)
 sqlx = { version = "=0.9.0-alpha.1", path = "." }
@@ -146,11 +225,16 @@ sqlx = { version = "=0.9.0-alpha.1", path = "." }
 # These are optional unless enabled in a workspace crate.
 bigdecimal = "0.4.0"
 bit-vec = "0.6.3"
-chrono = { version = "0.4.34", default-features = false, features = ["std", "clock"] }
+chrono = { version = "0.4.34", default-features = false, features = [
+    "std",
+    "clock",
+] }
 ipnet = "2.3.0"
 ipnetwork = "0.20.0"
 mac_address = "1.1.5"
-rust_decimal = { version = "1.26.1", default-features = false, features = ["std"] }
+rust_decimal = { version = "1.26.1", default-features = false, features = [
+    "std",
+] }
 time = { version = "0.3.36", features = ["formatting", "parsing", "macros"] }
 uuid = "1.1.2"
 
@@ -173,6 +257,8 @@ sqlx-macros = { workspace = true, optional = true }
 sqlx-mysql = { workspace = true, optional = true }
 sqlx-postgres = { workspace = true, optional = true }
 sqlx-sqlite = { workspace = true, optional = true }
+sqlx-oracle = { workspace = true, optional = true }
+pbkdf2 = "0.12.2"
 
 [dev-dependencies]
 anyhow = "1.0.52"
